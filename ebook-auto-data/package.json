@@ -1,0 +1,14 @@
+{
+  "name": "ebook-auto-data",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "update:manga": "node scripts/getMangaDeals.js",
+    "prettify": "node -e \"const f='./deals_manga.json';const fs=require('fs');if(fs.existsSync(f)){const j=JSON.parse(fs.readFileSync(f,'utf8'));fs.writeFileSync(f,JSON.stringify(j,null,2)+'\\n');}\""
+  },
+  "dependencies": {
+    "cheerio": "1.0.0-rc.12",
+    "node-fetch": "3.3.2"
+  }
+}
