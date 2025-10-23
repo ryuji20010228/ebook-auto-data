@@ -2,17 +2,18 @@ name: Update Manga Deals (daily)
 
 on:
   schedule:
-    - cron: "0 0 * * *"   # JST 9:00
+    - cron: "0 0 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write   # ← これを追加
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     defaults:
       run:
-        working-directory: ebook-auto-data   # ← サブフォルダで実行
-
+        working-directory: ebook-auto-data
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +24,7 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm install     # ← lockfile無しでもOK
+        run: npm install
 
       - name: Run scraper
         run: npm run update:manga
@@ -32,4 +33,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "update deals_manga.json (daily)"
-          file_pattern: ebook-auto-data/deals_manga.json  # ← サブフォルダのJSONを対象
+          file_pattern: ebook-auto-data/deals_manga.json
